@@ -8,10 +8,23 @@ namespace Estoque_API.Controllers;
 public class ProdutoController : ControllerBase
 {
     /// <summary>
+    /// Retorna o status da API
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("getstatus")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult GetStatus()
+    {
+        return Ok();
+    }
+
+    /// <summary>
     /// Busca todos os produtos
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [Route("getprodutos")]
     public async Task<ActionResult<IEnumerable<Produto>>> BuscarTodosOsProdutos()
     {
         return Ok(new Produto { });
@@ -34,6 +47,15 @@ public class ProdutoController : ControllerBase
     /// <param name="produto"></param>
     [HttpPost]
     public void CadastrarProduto([FromBody] Produto produto)
+    {
+    }
+
+    /// <summary>
+    /// Cadastra varios produtos novos
+    /// </summary>
+    /// <param name="produto"></param>
+    [HttpPost]
+    public void CadastrarVariosProduto([FromBody] List<Produto> produto)
     {
     }
 

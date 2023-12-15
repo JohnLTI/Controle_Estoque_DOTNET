@@ -6,12 +6,9 @@ namespace Estoque_API.Context
 {
     public class EstoqueDbContext : DbContext
     {
+        public EstoqueDbContext(DbContextOptions<EstoqueDbContext> options) : base(options)
+        { }
         public DbSet<Produto> Produtos { get; set; }
-
-        // Configuração do MySQL
-        /*
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseMySql("conexao_aqui");*/
     
     }
 }
