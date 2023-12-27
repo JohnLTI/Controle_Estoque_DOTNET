@@ -5,6 +5,7 @@ namespace Estoque_API.Model
 {
     public class Produto
     {
+        [Key]
         [Required(ErrorMessage = "O campo IdProduto é obrigatório.")]
         public int IdProduto { get; set; }
 

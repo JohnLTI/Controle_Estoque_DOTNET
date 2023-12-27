@@ -10,12 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23887375-4735-41cd-b83f-f53eb7e0eb46" name="Changes" comment="First commit.">
-      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Estoque_API/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Estoque_API/Model/Produto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Controle_estoque/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Controle_estoque/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controle_estoque.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Controle_estoque.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +27,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="Toolset" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2ZSskXRsKexn5gXiuNTUNDOYikL" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -48,7 +43,7 @@
     ".NET Launch Settings Profile.Estoque_API: http.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -65,18 +60,6 @@
     ]
   }
 }]]></component>
-  <component name="QodanaHighlightedReportService">
-    <option name="localRunNotPublishedPersistedInfo">
-      <LocalReportPersistedInfo>
-        <option name="path" value="C:\Users\nasci\AppData\Local\Temp\qodana_output\qodana.sarif.json" />
-        <option name="reportGuid" value="8218b1e3-cb08-4011-beee-877ee4906745" />
-        <option name="reportName" value="Controle_estoque/qodana/2023-12-12" />
-      </LocalReportPersistedInfo>
-    </option>
-  </component>
-  <component name="QodanaIsSelectedPersistenceService">
-    <option name="selectedOrLoading" value="true" />
-  </component>
   <component name="QodanaReportsService">
     <option name="descriptions">
       <ReportDescription localRun="true" path="C:\Users\nasci\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="8218b1e3-cb08-4011-beee-877ee4906745" reportId="Controle_estoque/qodana/2023-12-12" />
@@ -150,7 +133,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -163,6 +149,7 @@
       <option name="presentableId" value="Default" />
       <updated>1702426960617</updated>
       <workItem from="1702426966501" duration="2368000" />
+      <workItem from="1703720018685" duration="301000" />
     </task>
     <task id="LOCAL-00001" summary="First commit.">
       <option name="closed" value="true" />
