@@ -38,5 +38,7 @@ namespace Estoque_API.Model
 
         [Required(ErrorMessage = "O campo DataAtualizacao é obrigatório.")]
         public DateTime DataAtualizacao { get; set; }
+
+        public DateTime? DataVencimento { get; set; }
     }
 }
