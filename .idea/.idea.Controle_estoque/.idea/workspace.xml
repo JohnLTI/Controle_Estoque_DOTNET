@@ -9,8 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23887375-4735-41cd-b83f-f53eb7e0eb46" name="Changes" comment="First commit.">
+    <list default="true" id="23887375-4735-41cd-b83f-f53eb7e0eb46" name="Changes" comment="[FEAT] Adding migrations.">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Controle_estoque/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Controle_estoque/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Estoque_API/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Estoque_API/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +150,7 @@
       <option name="presentableId" value="Default" />
       <updated>1702426960617</updated>
       <workItem from="1702426966501" duration="2368000" />
-      <workItem from="1703720018685" duration="301000" />
+      <workItem from="1703720018685" duration="1137000" />
     </task>
     <task id="LOCAL-00001" summary="First commit.">
       <option name="closed" value="true" />
@@ -159,7 +160,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702427022562</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="[FEAT] Adding migrations.">
+      <option name="closed" value="true" />
+      <created>1703720882652</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1703720882652</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +189,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="First commit." />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit." />
+    <MESSAGE value="[FEAT] Adding migrations." />
+    <option name="LAST_COMMIT_MESSAGE" value="[FEAT] Adding migrations." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

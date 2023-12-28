@@ -34,6 +34,14 @@ cd Estoque_API
 ```bash
 dotnet run
 ```
+4. Comandos das migrations:
+
+Para criar uma migration: `dotnet ef migrations add <nome>`. 
+
+obs: cada migration deve ter um nome unico, o padrão da criação de nome e simples, consiste na data_nome definido
+no comando exemplo: 20231227234602_Initial.cs = data_nome.cs.
+
+Para aplicar a migration criada no banco de dados basta executar: `dotnet ef database update`.
 
 A API estará disponível em `https://localhost:5001` (ou `http://localhost:5000`).
 
