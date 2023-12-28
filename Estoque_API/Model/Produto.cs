@@ -5,6 +5,7 @@ namespace Estoque_API.Model
 {
     public class Produto
     {
+        [Key]
         [Required(ErrorMessage = "O campo IdProduto é obrigatório.")]
         public int IdProduto { get; set; }
 
@@ -38,5 +39,7 @@ namespace Estoque_API.Model
 
         [Required(ErrorMessage = "O campo DataAtualizacao é obrigatório.")]
         public DateTime DataAtualizacao { get; set; }
+
+        public DateTime? DataVencimento { get; set; }
     }
 }
