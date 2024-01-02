@@ -2,6 +2,7 @@ using Estoque_API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Estoque_API.Context;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Estoque_API.Controllers;
 
@@ -37,7 +38,20 @@ public class ProdutoController : ControllerBase
     [Route("getprodutos")]
     public async Task<ActionResult<IEnumerable<Produto>>> BuscarTodosOsProdutos()
     {
-        return Ok(new Produto { });
+        try
+        {
+            var produtos =  await _context.Produtos.ToListAsync();
+            return produtos.Count == 0 ? NoContent() : Ok(produtos);
+
+        }catch (Exception ex)
+        {
+            _logger.LogError($"Falha ao buscar produtos" + ex.Message);
+        }
+        finally
+        {
+            _context.Dispose();            
+        }
+        return NoContent();
     }
 
     /// <summary>
@@ -101,20 +115,28 @@ public class ProdutoController : ControllerBase
             _logger.LogError(ex, "Ocorreu um erro ao adicionar os produtos");
             return StatusCode(500);
         }
-        finally { _context.SaveChanges(); }
+        finally 
+        { 
+            _context.SaveChanges();
+            _context.Dispose();
+        }
     }
 
-    /*
     /// <summary>
     /// Atualiza as informações do produto.
+    /// Quando o usuario pesquisar qual produto deseja editar
+    /// usaremos o metodo de buscar pelo nome e utilizaremos aqui. 
     /// </summary>
     /// <param name="id"></param>
     /// <param name="produto"></param>
-    [HttpPut("{id}")]
-    public void AlterarProduto(int id, [FromBody] Produto produto)
+    [HttpPut("{nome}")]
+    public ActionResult AlterarProduto(string nome)
     {
+        return NotFound();
     }
 
+    /*
+   
     /// <summary>
     /// Retira o produto do estoque em caso de venda.
     /// </summary>
