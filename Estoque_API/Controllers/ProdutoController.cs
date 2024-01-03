@@ -78,4 +78,15 @@ public class ProdutoController : ControllerBase
     public void RetirarProduto(int id, [FromBody] Produto produto)
     {
     }
+
+    /// <summary>
+    /// Busca o produto por id unico
+    /// </summary>
+    /// <param name="nome"></param>
+    /// <returns></returns>
+    [HttpGet("{nome}", Name = "Get")]
+    public string BuscarProdutosPorNome(string nome)
+    {
+        return "value";
+    }
 }
