@@ -44,17 +44,17 @@ public class ProdutoController : ControllerBase
     {
         try
         {
-            var produtos =  _service.GetProdutos();
+            var produtos = await _context.Produtos.ToListAsync();
+            return produtos.Count == 0 ? NoContent() : Ok(produtos);
 
-            return produtos.Count == 0 || produtos == null ? NoContent() : Ok(produtos);
-
-        }catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             _logger.LogError($"Falha ao buscar produtos" + ex.Message);
         }
         finally
         {
-            _context.Dispose();            
+            _context.Dispose();
         }
         return NoContent();
     }
@@ -70,7 +70,7 @@ public class ProdutoController : ControllerBase
         return "value";
     }
 
-   
+
     /// <summary>
     /// Cadastra varios produtos novos caso não estejam cadastrados
     /// </summary>
@@ -97,8 +97,8 @@ public class ProdutoController : ControllerBase
             _logger.LogError(ex, "Ocorreu um erro ao adicionar os produtos");
             return StatusCode(500);
         }
-        finally 
-        { 
+        finally
+        {
             _context.SaveChanges();
             _context.Dispose();
         }
@@ -127,8 +127,16 @@ public class ProdutoController : ControllerBase
     [HttpPut("RetirarProduto/{id}")]
     public void RetirarProduto(int id, [FromBody] Produto produto)
     {
-    }*/
-
+    }
+*/
+    /// <summary>
+    /// Busca o produto por id unico
+    /// </summary>
+    /// <param name="nome"></param>
+    /// <returns></returns>
+    [HttpGet("{nome}", Name = "Get")]
+    public string BuscarProdutosPorNome(string nome)
+    {
+        return "value";
+    }
 }
-
-
