@@ -1,12 +1,27 @@
 using Estoque_API.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Estoque_API.Context;
+using Estoque_API.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Estoque_API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/product")]
 [ApiController]
 public class ProdutoController : ControllerBase
 {
+    private ILogger<ProdutoController> _logger;
+    private readonly EstoqueDbContext _context;
+    private readonly IServiceProduto _service;
+   
+    public ProdutoController(ILogger<ProdutoController> logger, EstoqueDbContext context, IServiceProduto service)
+    {
+        _logger = logger;
+        _context = context;
+        _service = service;
+    }
+
     /// <summary>
     /// Retorna o status da API
     /// </summary>
@@ -27,7 +42,21 @@ public class ProdutoController : ControllerBase
     [Route("getprodutos")]
     public async Task<ActionResult<IEnumerable<Produto>>> BuscarTodosOsProdutos()
     {
-        return Ok(new Produto { });
+        try
+        {
+            var produtos = await _context.Produtos.ToListAsync();
+            return produtos.Count == 0 ? NoContent() : Ok(produtos);
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Falha ao buscar produtos" + ex.Message);
+        }
+        finally
+        {
+            _context.Dispose();
+        }
+        return NoContent();
     }
 
     /// <summary>
@@ -41,35 +70,55 @@ public class ProdutoController : ControllerBase
         return "value";
     }
 
-    /// <summary>
-    /// Cadastra um novo produto
-    /// </summary>
-    /// <param name="produto"></param>
-    [HttpPost]
-    public void CadastrarProduto([FromBody] Produto produto)
-    {
-        
-    }
 
     /// <summary>
-    /// Cadastra varios produtos novos
+    /// Cadastra varios produtos novos caso não estejam cadastrados
     /// </summary>
     /// <param name="produto"></param>
     [HttpPost]
-    public void CadastrarVariosProduto([FromBody] List<Produto> produto)
+    [Route("postseveralproducts")]
+    public ActionResult<IEnumerable<Produto>> CadastrarVariosProdutos(List<Produto> produtos)
     {
+        try
+        {
+            if (produtos.Count > 0)
+            {
+                _service.PostProdutos(produtos);
+            }
+            else
+            {
+                _logger.LogInformation($"POST / Não há produtos à serem cadastrados.");
+                return NoContent();
+            }
+            return CreatedAtAction(nameof(BuscarTodosOsProdutos), new { produtos }, produtos);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ocorreu um erro ao adicionar os produtos");
+            return StatusCode(500);
+        }
+        finally
+        {
+            _context.SaveChanges();
+            _context.Dispose();
+        }
     }
 
     /// <summary>
     /// Atualiza as informações do produto.
+    /// Quando o usuario pesquisar qual produto deseja editar
+    /// usaremos o metodo de buscar pelo nome e utilizaremos aqui. 
     /// </summary>
     /// <param name="id"></param>
     /// <param name="produto"></param>
-    [HttpPut("{id}")]
-    public void AlterarProduto(int id, [FromBody] Produto produto)
+    [HttpPut("{nome}")]
+    public ActionResult AlterarProduto(string nome)
     {
+        return NotFound();
     }
 
+    /*
+   
     /// <summary>
     /// Retira o produto do estoque em caso de venda.
     /// </summary>
@@ -78,5 +127,16 @@ public class ProdutoController : ControllerBase
     [HttpPut("RetirarProduto/{id}")]
     public void RetirarProduto(int id, [FromBody] Produto produto)
     {
+    }
+*/
+    /// <summary>
+    /// Busca o produto por id unico
+    /// </summary>
+    /// <param name="nome"></param>
+    /// <returns></returns>
+    [HttpGet("{nome}", Name = "Get")]
+    public string BuscarProdutosPorNome(string nome)
+    {
+        return "value";
     }
 }

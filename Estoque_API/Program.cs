@@ -1,5 +1,6 @@
 using Estoque_API.Context;
 using Microsoft.EntityFrameworkCore;
+using Estoque_API.Services;
 using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<EstoqueDbContext>(options =>
         options.UseMySql(connectionString,
             ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddScoped<IServiceProduto, ServiceProduto>();
 
 // Add services to the container.
 builder.Services.AddControllers();
