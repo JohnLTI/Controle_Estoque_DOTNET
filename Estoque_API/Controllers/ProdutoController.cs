@@ -48,6 +48,7 @@ public class ProdutoController : ControllerBase
     [HttpPost]
     public void CadastrarProduto([FromBody] Produto produto)
     {
+        
     }
 
     /// <summary>
