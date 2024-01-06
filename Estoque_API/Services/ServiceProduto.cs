@@ -10,6 +10,7 @@ namespace Estoque_API.Services
     {
         ActionResult PostProdutos(List<Produto> produtos);
         List<Produto> GetProdutos();
+        void CloseContext();
     }
     public class ServiceProduto : IServiceProduto
     {
@@ -101,5 +102,12 @@ namespace Estoque_API.Services
                 _context.Dispose();
             }
         }
+
+        public void CloseContext()
+        {
+            this._context.SaveChanges();
+           this._context.Dispose();            
+        }
+
     }
 }
