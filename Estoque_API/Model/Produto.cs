@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Estoque_API.Model
 {
@@ -40,7 +39,12 @@ namespace Estoque_API.Model
         [Required(ErrorMessage = "O campo DataAtualizacao é obrigatório.")]
         public DateTime DataAtualizacao { get; set; }
 
-        public string? DataVencimento { get; set; }
-        
+        private string? _dataVencimento;
+
+        public string? DataVencimento
+        {
+            get => string.IsNullOrEmpty(_dataVencimento) ? "Indeterminado" : _dataVencimento;
+            set => _dataVencimento = value ?? "Indeterminado";
+        }
     }
 }
