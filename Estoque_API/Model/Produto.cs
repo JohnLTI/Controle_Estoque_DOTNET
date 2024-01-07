@@ -10,7 +10,7 @@ namespace Estoque_API.Model
         public int IdProduto { get; set; }
 
         [Required(ErrorMessage = "O campo NomeProduto é obrigatório.")]
-        [StringLength(30, ErrorMessage = "O campo NomeProduto não pode ter mais de 30 caracteres.")]
+        [StringLength(50, ErrorMessage = "O campo NomeProduto não pode ter mais de 30 caracteres.")]
         public string NomeProduto { get; set; }
 
         [StringLength(300, ErrorMessage = "O campo DescricaoProduto não pode ter mais de 300 caracteres.")]
@@ -40,6 +40,7 @@ namespace Estoque_API.Model
         [Required(ErrorMessage = "O campo DataAtualizacao é obrigatório.")]
         public DateTime DataAtualizacao { get; set; }
 
-        public DateTime? DataVencimento { get; set; }
+        public string? DataVencimento { get; set; }
+        
     }
 }

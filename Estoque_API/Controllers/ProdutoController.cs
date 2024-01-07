@@ -54,7 +54,7 @@ public class ProdutoController : ControllerBase
         }
         finally
         {
-            _context.Dispose();
+            //_context.Dispose();
         }
         return NoContent();
     }
@@ -99,7 +99,7 @@ public class ProdutoController : ControllerBase
         }
         finally
         {
-            _service.CloseContext();
+           // _service.CloseContext();
         }
     }
 
