@@ -2,6 +2,7 @@ using Estoque_API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Estoque_API.Context;
+using Estoque_API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Estoque_API.Controllers;
@@ -12,10 +13,13 @@ public class ProdutoController : ControllerBase
 {
     private ILogger<ProdutoController> _logger;
     private readonly EstoqueDbContext _context;
-    public ProdutoController(ILogger<ProdutoController> logger, EstoqueDbContext context)
+    private readonly IServiceProduto _service;
+   
+    public ProdutoController(ILogger<ProdutoController> logger, EstoqueDbContext context, IServiceProduto service)
     {
         _logger = logger;
         _context = context;
+        _service = service;
     }
 
     /// <summary>
@@ -36,11 +40,11 @@ public class ProdutoController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [Route("getprodutos")]
-    public async Task<ActionResult<IEnumerable<Produto>>> BuscarTodosOsProdutos()
+    public  ActionResult<IEnumerable<Produto>> BuscarTodosOsProdutos()
     {
         try
         {
-            var produtos = await _context.Produtos.ToListAsync();
+            var produtos = _service.GetProdutos();
             return produtos.Count == 0 ? NoContent() : Ok(produtos);
 
         }
@@ -79,30 +83,7 @@ public class ProdutoController : ControllerBase
         {
             if (produtos.Count > 0)
             {
-                var todosProdutosCadastrados = _context.Produtos.ToList();
-                if (todosProdutosCadastrados.Count != 0)
-                {
-                    foreach (var p in produtos)
-                    {
-                        bool produtoExistente = todosProdutosCadastrados.Any(produtos => produtos == p);
-
-                        if (!produtoExistente)
-                        {
-                            _context.Produtos.Add(p);
-                            _context.SaveChanges();
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (var pd in produtos)
-                    {
-                        _context.Produtos.Add(pd);
-                        _context.SaveChanges();
-                    }
-                }
-                _logger.LogInformation($"POST /Produtos cadastrados com sucesso");
-                _context.SaveChanges();
+                _service.PostProdutos(produtos);
             }
             else
             {
@@ -118,11 +99,12 @@ public class ProdutoController : ControllerBase
         }
         finally
         {
-            _context.SaveChanges();
-            _context.Dispose();
+            _service.CloseContext();
         }
     }
 
+
+    /*
     /// <summary>
     /// Atualiza as informações do produto.
     /// Quando o usuario pesquisar qual produto deseja editar
@@ -136,7 +118,7 @@ public class ProdutoController : ControllerBase
         return NotFound();
     }
 
-    /*
+    
    
     /// <summary>
     /// Retira o produto do estoque em caso de venda.
@@ -147,7 +129,7 @@ public class ProdutoController : ControllerBase
     public void RetirarProduto(int id, [FromBody] Produto produto)
     {
     }
-*/
+
     /// <summary>
     /// Busca o produto por id unico
     /// </summary>
@@ -158,4 +140,5 @@ public class ProdutoController : ControllerBase
     {
         return "value";
     }
+    */
 }
