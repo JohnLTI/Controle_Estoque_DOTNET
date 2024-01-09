@@ -2,7 +2,7 @@ using Estoque_API.Context;
 using Microsoft.EntityFrameworkCore;
 using Estoque_API.Services;
 using MySqlConnector;
-using Estoque_API.Services.Interfaces;
+using Estoque_API.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

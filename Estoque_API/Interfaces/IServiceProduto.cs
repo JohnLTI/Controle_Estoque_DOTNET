@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Estoque_API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Estoque_API.Services.Interfaces
+namespace Estoque_API.Interfaces
 {
     public interface IServiceProduto
     {
@@ -12,6 +12,6 @@ namespace Estoque_API.Services.Interfaces
         List<Produto> GetProdutos();
         Produto BuscarProdutoPorId(int id);
         Produto SellItem(int id, int qtd);
-        void CloseContext();
+        //void CloseContext();
     }
 }
