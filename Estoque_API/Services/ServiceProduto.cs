@@ -10,6 +10,7 @@ namespace Estoque_API.Services
     {
         ActionResult PostProdutos(List<Produto> produtos);
         List<Produto> GetProdutos();
+        Produto BuscarProdutoPorId(int id);
         void CloseContext();
     }
     public class ServiceProduto : IServiceProduto
@@ -105,9 +106,15 @@ namespace Estoque_API.Services
 
         public void CloseContext()
         {
-            this._context.SaveChanges();
+           this._context.SaveChanges();
            this._context.Dispose();            
         }
 
+        public Produto BuscarProdutoPorId(int id)
+        {
+            var produtos = _context.Produtos.Find(id);
+            if (produtos == null) throw new Exception ("Produto não encontrado");
+            return produtos;
+        }
     }
 }

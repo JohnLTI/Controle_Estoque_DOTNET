@@ -45,7 +45,7 @@ public class ProdutoController : ControllerBase
         try
         {
             var produtos = _service.GetProdutos();
-            return produtos.Count == 0 ? NoContent() : Ok(produtos);
+            return produtos == null ? NotFound() : produtos.Count == 0 ? NoContent() : Ok(produtos);
 
         }
         catch (Exception ex)
@@ -62,12 +62,22 @@ public class ProdutoController : ControllerBase
     /// <summary>
     /// Busca o produto por id unico
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id"></param>       
     /// <returns></returns>
-    [HttpGet("{id}", Name = "Get")]
-    public string BuscarProdutorPorId(int id)
-    {
-        return "value";
+    [HttpGet("{id}")]
+    public IActionResult BuscarProdutorPorId([FromRoute]int id) 
+    {   
+        try
+        {
+            var produtoDB = _service.BuscarProdutoPorId(id);
+            return StatusCode(200,produtoDB);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode (404,ex.Message);
+        }
+       
+        return Ok();
     }
 
 
