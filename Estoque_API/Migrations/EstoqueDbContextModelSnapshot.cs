@@ -32,7 +32,8 @@ namespace Estoque_API.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("DataVencimento")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("DescricaoProduto")
                         .IsRequired()
