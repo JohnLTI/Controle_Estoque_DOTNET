@@ -3,16 +3,10 @@ using Estoque_API.Context;
 using Microsoft.EntityFrameworkCore;
 using Estoque_API.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Estoque_API.Services.Interfaces;
 
 namespace Estoque_API.Services
 {
-    public interface IServiceProduto
-    {
-        ActionResult PostProdutos(List<Produto> produtos);
-        List<Produto> GetProdutos();
-        Produto BuscarProdutoPorId(int id);
-        void CloseContext();
-    }
     public class ServiceProduto : IServiceProduto
     {
         private readonly EstoqueDbContext _context;
@@ -115,6 +109,20 @@ namespace Estoque_API.Services
             var produtos = _context.Produtos.Find(id);
             if (produtos == null) throw new Exception ("Produto não encontrado");
             return produtos;
+        }
+        
+        public Produto SellItem(int id, int qtd) //Retira a quantidade de itens requisitada durante a venda caso haja em estoque.
+        {
+                var produtoDb = _context.Produtos.Find(id);
+
+                if (produtoDb == null) throw new Exception("ID não encontrado");
+                if (qtd < 0 || qtd > produtoDb.QuantidadeProduto) throw new Exception($"A quantidade requisitada não está disponível no estoque! \nESTOQUE = {produtoDb.QuantidadeProduto} itens");
+
+                produtoDb.QuantidadeProduto = produtoDb.QuantidadeProduto - qtd;
+                _context.Produtos.Update(produtoDb);
+                _context.SaveChanges();
+
+                return produtoDb;
         }
     }
 }

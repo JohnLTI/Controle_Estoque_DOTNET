@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Estoque_API.Context;
 using Estoque_API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Estoque_API.Services.Interfaces;
 
 namespace Estoque_API.Controllers;
 
@@ -76,10 +77,7 @@ public class ProdutoController : ControllerBase
         {
             return StatusCode (404,ex.Message);
         }
-       
-        return Ok();
     }
-
 
     /// <summary>
     /// Cadastra varios produtos novos caso não estejam cadastrados
@@ -113,6 +111,25 @@ public class ProdutoController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retira o produto do estoque em caso de venda.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="produto"></param>
+    [HttpPut("putsellitem/{id}")]
+    public IActionResult RetirarProduto([FromRoute]int id, int quantidade)
+    {
+        try
+        {
+            var produto = _service.SellItem(id, quantidade);
+            var valorVenda = produto.PrecoPrevistoVenda * quantidade;
+            return StatusCode(200, $"Vendido {quantidade} {produto.NomeProduto}(s) por R$ {valorVenda.ToString("N2")}");
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(400, ex.Message);
+        }
+    }
 
     /*
     /// <summary>
@@ -126,18 +143,6 @@ public class ProdutoController : ControllerBase
     public ActionResult AlterarProduto(string nome)
     {
         return NotFound();
-    }
-
-    
-   
-    /// <summary>
-    /// Retira o produto do estoque em caso de venda.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="produto"></param>
-    [HttpPut("RetirarProduto/{id}")]
-    public void RetirarProduto(int id, [FromBody] Produto produto)
-    {
     }
 
     /// <summary>
