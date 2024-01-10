@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Estoque_API.Context;
 using Estoque_API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Estoque_API.Services.Interfaces;
+using Estoque_API.Interfaces;
 
 namespace Estoque_API.Controllers;
 
@@ -107,7 +107,10 @@ public class ProdutoController : ControllerBase
         }
         finally
         {
-           // _service.CloseContext();
+            foreach (var p in produtos)
+            {
+                StatusCode(200, $"Produto {p.NomeProduto} cadastrado com sucesso");
+            }            
         }
     }
 

@@ -3,7 +3,9 @@ using Estoque_API.Context;
 using Microsoft.EntityFrameworkCore;
 using Estoque_API.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Estoque_API.Services.Interfaces;
+using Estoque_API.Interfaces;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace Estoque_API.Services
 {
@@ -30,11 +32,7 @@ namespace Estoque_API.Services
             catch (Exception ex)
             {
                 _logger.LogError($"Falha ao buscar produtos" + ex.Message);
-            }
-            finally
-            {
-                _context.Dispose();
-            }
+            }            
             return null;
         }
 
@@ -58,8 +56,7 @@ namespace Estoque_API.Services
 
                             if (produtoExistente == false)
                             {
-                                _context.Produtos.Add(p);
-                                _context.SaveChanges();
+                                _context.Produtos.Add(p);                                
                             }
                             else
                             {
@@ -71,9 +68,7 @@ namespace Estoque_API.Services
                     {
                         foreach(var p in produtos)
                         {
-                            _context.Produtos.Add(p);
-                            _context.SaveChanges();
-                            _context.Dispose();
+                            _context.Produtos.Add(p);                           
                         }                        
                     }                 
                     _context.SaveChanges();
@@ -91,10 +86,6 @@ namespace Estoque_API.Services
             {
                 _logger.LogError(ex, "Ocorreu um erro ao adicionar os produtos");
                 return new StatusCodeResult(500);
-            }
-            finally
-            {
-                _context.Dispose();
             }
         }
 
