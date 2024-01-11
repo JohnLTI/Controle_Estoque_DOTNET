@@ -97,23 +97,23 @@ namespace Estoque_API.Services
 
         public Produto BuscarProdutoPorId(int id)
         {
-            var produtos = _context.Produtos.Find(id);
-            if (produtos == null) throw new Exception ("Produto não encontrado");
-            return produtos;
+            var produto = _context.Produtos.Find(id);
+            if (produto == null) throw new Exception ("Produto não encontrado");
+            return produto;
         }
         
         public Produto SellItem(int id, int qtd) //Retira a quantidade de itens requisitada durante a venda caso haja em estoque.
         {
-                var produtoDb = _context.Produtos.Find(id);
+            var produtoDb = _context.Produtos.Find(id);
 
-                if (produtoDb == null) throw new Exception("ID não encontrado");
-                if (qtd < 0 || qtd > produtoDb.QuantidadeProduto) throw new Exception($"A quantidade requisitada não está disponível no estoque! \nESTOQUE = {produtoDb.QuantidadeProduto} itens");
+            if (produtoDb == null) throw new Exception("ID não encontrado");
+            if (qtd < 0 || qtd > produtoDb.QuantidadeProduto) throw new Exception($"A quantidade requisitada não está disponível no estoque! \nESTOQUE = {produtoDb.QuantidadeProduto} itens");
 
-                produtoDb.QuantidadeProduto = produtoDb.QuantidadeProduto - qtd;
-                _context.Produtos.Update(produtoDb);
-                _context.SaveChanges();
+            produtoDb.QuantidadeProduto = produtoDb.QuantidadeProduto - qtd;
+            _context.Produtos.Update(produtoDb);
+            _context.SaveChanges();
 
-                return produtoDb;
+            return produtoDb;
         }
     }
 }
