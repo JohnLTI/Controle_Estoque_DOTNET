@@ -44,7 +44,6 @@ namespace Estoque_API.Model
         [StringLength(15, ErrorMessage = "O campo DataVencimento não pode ter mais de 15 caracteres.")]
         public string? DataVencimento
         {
-            
             get => string.IsNullOrEmpty(_dataVencimento) ? "Indeterminado" : _dataVencimento;
             set => _dataVencimento = value ?? "Indeterminado";
         }
