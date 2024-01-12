@@ -34,6 +34,23 @@ namespace Estoque_API.Services
             }            
         }
 
+        private void RegistrarVenda(Venda venda)
+        {
+            this.PostVenda(venda);
+        }
+
+        private Venda PreparaVenda(int idProduto, int qtdVendida, decimal valorVenda)
+        {
+            Venda venda = new Venda();
+            
+            venda.IdProduto = idProduto;
+            venda.DataVenda = DateTime.Now;
+            venda.PrecoVenda = (qtdVendida * valorVenda);
+            venda.QuantidadeItens = qtdVendida;
+            return venda;           
+
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

@@ -115,31 +115,10 @@ namespace Estoque_API.Services
 
                 produtoDb.QuantidadeProduto = produtoDb.QuantidadeProduto - qtd;
                 _context.Produtos.Update(produtoDb);
-                RegistrarVenda(PreparaVenda(produtoDb,qtd));
                 _context.SaveChanges();
 
                 return produtoDb;
         }
 
-        private void RegistrarVenda(Venda venda)
-        {
-            using (_serviceVenda)
-            {
-                _serviceVenda.PostVenda(venda);
-            }
-        }
-
-        private Venda PreparaVenda(Produto produto, int qtdVendida)
-        {
-            using (var venda = new Venda())
-            {
-                venda.ProdutoVendido = produto;
-                venda.DataVenda = DateTime.Now;
-                venda.QtdItensVendidos = qtdVendida;
-                venda.ValorTotalVenda = (produto.PrecoPrevistoVenda * qtdVendida);
-                return venda;
-            }
-            
-        }
     }
 }
