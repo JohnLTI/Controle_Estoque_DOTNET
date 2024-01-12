@@ -9,6 +9,7 @@ namespace Estoque_API.Context
         public EstoqueDbContext(DbContextOptions<EstoqueDbContext> options) : base(options)
         { }
         public DbSet<Produto> Produtos { get; set; }
-    
+        public DbSet<Venda> Vendas { get; set; }
+
     }
 }

@@ -48,5 +48,55 @@ namespace Estoque_API.Model
             get => string.IsNullOrEmpty(_dataVencimento) ? "Indeterminado" : _dataVencimento;
             set => _dataVencimento = value ?? "Indeterminado";
         }
+
+        public class Venda : System.IDisposable
+        {
+            private bool disposedValue;
+
+            [Key]
+            public int IdVenda { get; set; }
+
+            [Required(ErrorMessage = "O campo ProdutoVendido é obrigatório.")]
+            public Produto ProdutoVendido { get; set; }
+
+            [Required(ErrorMessage = "O campo QtdItensVendidos é obrigatório.")]
+            public int QtdItensVendidos { get; set; }
+
+            [Required(ErrorMessage = "O campo ValorTotalVenda é obrigatório.")]
+            [Range(0.01, double.MaxValue, ErrorMessage = "O valor de ValorTotalVenda deve ser maior que zero.")]
+            public decimal ValorTotalVenda { get; set; }
+
+            [Required(ErrorMessage = "O campo DataVenda é obrigatório.")]
+            public DateTime DataVenda { get; set; }
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!disposedValue)
+                {
+                    if (disposing)
+                    {
+                        // TODO: dispose managed state (managed objects)
+                    }
+
+                    // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                    // TODO: set large fields to null
+                    disposedValue = true;
+                }
+            }
+
+            // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+            // ~Venda()
+            // {
+            //     // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+            //     Dispose(disposing: false);
+            // }
+
+            public void Dispose()
+            {
+                // Não altere este código. Coloque o código de limpeza no método 'Dispose(bool disposing)'
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
+        }
     }
 }
