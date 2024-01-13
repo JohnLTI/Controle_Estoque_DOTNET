@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Estoque_API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Estoque_API.Interfaces;
+using Estoque_API.Services;
+
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +15,9 @@ namespace Estoque_API.Services
     {
         private readonly EstoqueDbContext _context;
         private ILogger<ServiceProduto> _logger;
-      
+        private ServiceVenda _serviceVenda = new ServiceVenda();
+
+
         public ServiceProduto(EstoqueDbContext context, ILogger<ServiceProduto> logger)
         {
             _context = context;
@@ -97,23 +101,24 @@ namespace Estoque_API.Services
 
         public Produto BuscarProdutoPorId(int id)
         {
-            var produto = _context.Produtos.Find(id);
-            if (produto == null) throw new Exception ("Produto não encontrado");
-            return produto;
+            var produtos = _context.Produtos.Find(id);
+            if (produtos == null) throw new Exception ("Produto não encontrado");
+            return produtos;
         }
         
         public Produto SellItem(int id, int qtd) //Retira a quantidade de itens requisitada durante a venda caso haja em estoque.
         {
-            var produtoDb = _context.Produtos.Find(id);
+                var produtoDb = _context.Produtos.Find(id);
 
-            if (produtoDb == null) throw new Exception("ID não encontrado");
-            if (qtd < 0 || qtd > produtoDb.QuantidadeProduto) throw new Exception($"A quantidade requisitada não está disponível no estoque! \nESTOQUE = {produtoDb.QuantidadeProduto} itens");
+                if (produtoDb == null) throw new Exception("ID não encontrado");
+                if (qtd < 0 || qtd > produtoDb.QuantidadeProduto) throw new Exception($"A quantidade requisitada não está disponível no estoque! \nESTOQUE = {produtoDb.QuantidadeProduto} itens");
 
-            produtoDb.QuantidadeProduto = produtoDb.QuantidadeProduto - qtd;
-            _context.Produtos.Update(produtoDb);
-            _context.SaveChanges();
+                produtoDb.QuantidadeProduto = produtoDb.QuantidadeProduto - qtd;
+                _context.Produtos.Update(produtoDb);
+                _context.SaveChanges();
 
-            return produtoDb;
+                return produtoDb;
         }
+
     }
 }

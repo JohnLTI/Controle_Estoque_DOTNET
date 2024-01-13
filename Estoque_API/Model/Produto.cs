@@ -47,5 +47,6 @@ namespace Estoque_API.Model
             get => string.IsNullOrEmpty(_dataVencimento) ? "Indeterminado" : _dataVencimento;
             set => _dataVencimento = value ?? "Indeterminado";
         }
+        
     }
 }
