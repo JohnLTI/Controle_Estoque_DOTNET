@@ -61,6 +61,18 @@ public class ProdutoController : ControllerBase
     }
 
     /// <summary>
+    /// Busca o produto pelo nome
+    /// </summary>
+    /// <param name="nome"></param>
+    /// <returns></returns>
+    [HttpGet("getproductbyname")]
+    public ActionResult<IEnumerable<Produto>> BuscarProdutosPorNome(string nome)
+    {
+        var produtos = _service.GetByName(nome);
+        return produtos;
+    }
+
+    /// <summary>
     /// Busca o produto por id unico
     /// </summary>
     /// <param name="id"></param>       
@@ -134,29 +146,4 @@ public class ProdutoController : ControllerBase
         }
     }
 
-    /*
-    /// <summary>
-    /// Atualiza as informações do produto.
-    /// Quando o usuario pesquisar qual produto deseja editar
-    /// usaremos o metodo de buscar pelo nome e utilizaremos aqui. 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="produto"></param>
-    [HttpPut("{nome}")]
-    public ActionResult AlterarProduto(string nome)
-    {
-        return NotFound();
-    }
-
-    /// <summary>
-    /// Busca o produto por id unico
-    /// </summary>
-    /// <param name="nome"></param>
-    /// <returns></returns>
-    [HttpGet("{nome}", Name = "Get")]
-    public string BuscarProdutosPorNome(string nome)
-    {
-        return "value";
-    }
-    */
 }

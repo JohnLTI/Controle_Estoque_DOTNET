@@ -8,6 +8,7 @@ using Estoque_API.Services;
 
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace Estoque_API.Services
 {
@@ -106,6 +107,14 @@ namespace Estoque_API.Services
             return produtos;
         }
         
+
+        public List<Produto> GetByName(string name)
+        {
+            var list = _context.Produtos.Where(n => n.NomeProduto.ToUpper() 
+                                                .Contains(name.ToUpper())).ToList();
+            return list == null ? throw new Exception("Produto não encontrado") : list;
+        }
+
         public Produto SellItem(int id, int qtd) //Retira a quantidade de itens requisitada durante a venda caso haja em estoque.
         {
                 var produtoDb = _context.Produtos.Find(id);
