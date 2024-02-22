@@ -10,6 +10,7 @@ namespace Estoque_API.Interfaces
     {
         ActionResult PostProdutos(List<Produto> produtos);
         List<Produto> GetProdutos();
+        List<Produto> GetByName(string name);
         Produto BuscarProdutoPorId(int id);
         Produto SellItem(int id, int qtd);
         //void CloseContext();
